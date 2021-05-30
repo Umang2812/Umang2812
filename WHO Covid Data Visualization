@@ -1,0 +1,193 @@
+# # DATA VISUALIZATION OF COVID-19 WHO DATA
+
+# Display line chart for Cumulative_cases for country like Sweden,Thailand and Iraq day wise.
+
+import pandas as pd
+import matplotlib.pyplot as plt
+df = pd.read_csv('WHO-COVID-19-global-data.csv', index_col=['Country'],parse_dates=['Date_reported'])
+Country=df.groupby('Country')
+
+Iraq=Country.get_group('Iraq')
+Sweden=Country.get_group('Sweden')
+Thailand=Country.get_group('Thailand')
+
+x1,y1=(Iraq.Date_reported,Iraq.Cumulative_cases)
+
+x2,y2=(Sweden.Date_reported,Sweden.Cumulative_cases)
+
+x3,y3=(Thailand.Date_reported,Thailand.Cumulative_cases)
+
+plt.plot(x1,y1,color='Blue',label="Iraq")
+plt.plot(x2,y2,color='Green',label="Sweden")
+plt.plot(x3,y3,color='Red',label="Thailand")
+
+plt.xlabel('Date reported')
+plt.ylabel('Cases')
+plt.title("line chart for Cumulative_cases for country like Sweden,Thailand and Iraq day wise")
+plt.legend()
+plt.show()    
+
+
+# Design pie chart visualization of new_death cases in last six months for countries like Jordan, India,Zimbabwe and Kenya.
+
+
+import pandas as pd
+from matplotlib.pyplot import pie, axis, show
+import matplotlib.pyplot as plt
+
+
+df = pd.read_csv ('WHO-COVID-19-global-data.csv')
+
+x1=df[(df['Country']=='Jordan') & (df['Date_reported']>'2020-02-18')]['New_deaths'].sum()
+x2=df[(df['Country']=='India') & (df['Date_reported']>'2020-02-18')]['New_deaths'].sum()
+x3=df[(df['Country']=='Zimbawe') & (df['Date_reported']>'2020-02-18')]['New_deaths'].sum()
+x4=df[(df['Country']=='Kenya') & (df['Date_reported']>'2020-02-18')]['New_deaths'].sum()
+
+new_deaths_last_six=pd.DataFrame(data={'Country':['Jordan','India','Zimbabwe','Kenya'],'Deaths':[x1,x2,x3,x4]})
+ax1 = plt.subplot(111, aspect='equal')
+
+ax1.pie(new_deaths_last_six['Deaths'],explode=(0,0,0,0,),labels=new_deaths_last_six['Country'],autopct='%1.1f%%',
+        shadow=True,startangle=0)
+plt.legend()
+plt.show()    
+
+
+# Design bar chart visualization for first six months for countries like Algeria,Spain,Israel and Bangladesh
+
+# In[68]:
+
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+
+
+df = pd.read_csv('WHO-COVID-19-global-data.csv')
+#df = pd.read_csv('WHO-COVID-19-global-data.csv', index_col=['Date_Reported'],parse_dates=['Date_reported'])
+
+
+x=['Algeria','Spain','Israel','Bangladesh']
+
+y1=df[(df['Country']=='Algeria') & (df['Date_reported']<'2020-07-03')]['New_deaths'].sum()
+y2=df[(df['Country']=='Spain') & (df['Date_reported']<'2020-07-03')]['New_deaths'].sum()
+y3=df[(df['Country']=='Israel') & (df['Date_reported']<'2020-07-03')]['New_deaths'].sum()
+y4=df[(df['Country']=='Bangladesh') & (df['Date_reported']<'2020-07-03')]['New_deaths'].sum()
+
+plt.bar(x[0],y1,color='Blue',label="Algeria")
+plt.bar(x[1],y2,color='Green',label="Spain")
+plt.bar(x[2],y3,color='Red',label="Israel")
+plt.bar(x[3],y4,color='Pink',label="Bangladesh")
+
+plt.xlabel('Country')
+plt.ylabel('New Death')
+plt.title("New Death vs Country")
+plt.legend()
+plt.show()  
+
+
+
+
+z1=df[(df['Country']=='Algeria') & (df['Date_reported']<'2020-07-03')]['New_cases'].sum()
+z2=df[(df['Country']=='Spain') & (df['Date_reported']<'2020-07-03')]['New_cases'].sum()
+z3=df[(df['Country']=='Israel') & (df['Date_reported']<'2020-07-03')]['New_cases'].sum()
+z4=df[(df['Country']=='Bangladesh') & (df['Date_reported']<'2020-07-03')]['New_cases'].sum()
+
+plt.bar(x[0],z1,color='Blue',label="Algeria")
+plt.bar(x[1],z2,color='Green',label="Spain")
+plt.bar(x[2],z3,color='Red',label="Israel")
+plt.bar(x[3],z4,color='Pink',label="Bangladesh")
+
+plt.xlabel('Country')
+plt.ylabel('New Cases')
+plt.title("New Cases vs Country")
+plt.legend()
+plt.show()    
+
+
+
+y1=df[(df['Country']=='Algeria') & (df['Date_reported']<'2020-07-03')]['Cumulative_cases'].sum()
+y2=df[(df['Country']=='Spain') & (df['Date_reported']<'2020-07-03')]['Cumulative_cases'].sum()
+y3=df[(df['Country']=='Israel') & (df['Date_reported']<'2020-07-03')]['Cumulative_cases'].sum()
+y4=df[(df['Country']=='Bangladesh') & (df['Date_reported']<'2020-07-03')]['Cumulative_cases'].sum()
+
+plt.bar(x[0],y1,color='Blue',label="Algeria")
+plt.bar(x[1],y2,color='Green',label="Spain")
+plt.bar(x[2],y3,color='Red',label="Israel")
+plt.bar(x[3],y4,color='Pink',label="Bangladesh")
+
+plt.xlabel('Country')
+plt.ylabel('Cumulative_cases')
+plt.title("Cumulative_cases vs Country")
+plt.legend()
+plt.show()   
+
+y1=df[(df['Country']=='Algeria') & (df['Date_reported']<'2020-07-03')]['Cumulative_deaths'].sum()
+y2=df[(df['Country']=='Spain') & (df['Date_reported']<'2020-07-03')]['Cumulative_deaths'].sum()
+y3=df[(df['Country']=='Israel') & (df['Date_reported']<'2020-07-03')]['Cumulative_deaths'].sum()
+y4=df[(df['Country']=='Bangladesh') & (df['Date_reported']<'2020-07-03')]['Cumulative_deaths'].sum()
+
+plt.bar(x[0],y1,color='Blue',label="Algeria")
+plt.bar(x[1],y2,color='Green',label="Spain")
+plt.bar(x[2],y3,color='Red',label="Israel")
+plt.bar(x[3],y4,color='Pink',label="Bangladesh")
+
+plt.xlabel('Country')
+plt.ylabel('Cumulative_deaths')
+plt.title("Cumulative_deaths vs Country")
+plt.legend()
+plt.show()   
+
+
+# Display numbers of new cases of covid-19 using Geo map South Africa, Sweden, England, Spain, India, Algeria.
+
+# In[1]:
+
+
+import numpy as np
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+get_ipython().run_line_magic('matplotlib', 'inline')
+import folium
+from geopy.geocoders import Nominatim
+import requests
+import warnings
+#warnings.filterwarnings('ignore')
+#plt.style.use('ggplot')
+df=pd.read_csv('WHO-COVID-19-global-data.csv')
+df.head()
+new_cases=[]
+for c in df['Country_code'].unique():
+    new_cases.append(df[(df['Country_code']==c) & (df['Date_reported']==df['Date_reported'].max())]['New_cases'].sum())
+df_newcases=pd.DataFrame(data={'Country':df['Country'].unique(),'New_Cases':new_cases})
+df_newcases
+x=list(df_newcases['Country'])
+for i in range(len(x)):
+    if x[i]=='Kosovo[1]':
+        x[i]='Kosovo'
+    if x[i]=='Micronesia (Federated States of)':
+        x[i]='Micronesia'
+    if x[i]=='occupied Palestinian territory, including east Jerusalem':
+        x[i]='Palestinian'
+    if x[i]=='Venezuela (Bolivarian Republic of)':
+        x[i]='Venezuela'
+df_newcases['Country']=x
+lat=[]
+lng=[]
+geolocator=Nominatim(user_agent='foursquare_api')
+for nm in df_newcases['Country']:
+    location=geolocator.geocode(str(nm),timeout=10)
+    lat.append(location.latitude)
+    lng.append(location.longitude)
+df_newcases['Latitudes']=lat
+df_newcases['Longitudes']=lng
+df_newcases.head()
+wm=folium.Map(zoom_start=5,location=[df_newcases['Latitudes'].mean(),df_newcases['Longitudes'].mean()])
+mp=folium.map.FeatureGroup()
+for i,j,k,l in zip(df_newcases['Latitudes'],df_newcases['Longitudes'],df_newcases['New_Cases'],df_newcases['Country']):
+    mp.add_child(folium.CircleMarker(location=[i,j],radius=5,color='red',fill_color='Yellow'))
+    folium.Marker([i,j],popup='New Cases:'+str(k)+'\nCountry:'+str(l)).add_to(mp)
+wm.add_child(mp)
+wm
+
+
